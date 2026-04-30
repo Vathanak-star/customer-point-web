@@ -1,16 +1,100 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Bounce, ToastContainer } from "react-toastify";
+import userService from '../services/users'
+import { Bounce, ToastContainer,toast } from "react-toastify";
+import { CircularProgress } from "@mui/material";
 
 export default function LoginPage(){
     const navigate = useNavigate()
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const [isLoading,setLoading] = useState(false)
 
     const onSignUpClick = (event) => {
         event.preventDefault()
         navigate('/register', {viewTransition: true})
     }
+
+    const onSubmit = (event) => {
+        event.preventDefault()
+        setLoading(true)
+        const userObj ={
+            "email": email,
+            "password": password
+        }
+
+        if(!email || !password){
+            setLoading(false)
+                toast.error('Enter email and password!', {
+                          position: "top-right",
+                          autoClose: 3000,
+                          hideProgressBar: false,
+                          closeOnClick: false,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          transition: Bounce,
+                });
+        }else{
+            userService.login(userObj).then(result => {
+            console.log(result.status)
+
+            if(result.msg === "Internal server error."){
+                setLoading(false)
+                toast.error('Incorrect email input or error server', {
+                          position: "top-right",
+                          autoClose: 3000,
+                          hideProgressBar: false,
+                          closeOnClick: false,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          transition: Bounce,
+                });
+            }
+
+            if(result.msg === 'Email not found'){
+                setLoading(false)
+                toast.error('Email not found!', {
+                          position: "top-right",
+                          autoClose: 3000,
+                          hideProgressBar: false,
+                          closeOnClick: false,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          transition: Bounce,
+                });
+            }
+
+            if(result.msg === 'Invalid credentials'){
+                setLoading(false)
+                toast.error('Incorrect password!', {
+                          position: "top-right",
+                          autoClose: 3000,
+                          hideProgressBar: false,
+                          closeOnClick: false,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                          transition: Bounce,
+                });
+            }
+
+            if(result.status === 'success'){
+                setLoading(false)
+                navigate('/home')
+            }
+        })
+        }
+
+          
+    }
+
 
     return (
         <div className="flex h-screen justify-center items-center bg-white sm:bg-gray-100 transition-colors duration-400">
@@ -34,7 +118,7 @@ export default function LoginPage(){
                     </div>
                     <h1 className="flex text-2xl font-bold justify-center">Admin Dashboard</h1>
                     <h1 className="flex text-2xl font-bold justify-center">Login</h1>
-                    <form onSubmit={() => {}} className="flex flex-col mt-3">
+                    <form onSubmit={onSubmit} className="flex flex-col mt-3">
                         <div>
                             <label htmlFor="email" className="block mb-2.5 text-sm font-medium">Enter Email: </label>
                             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" name="email" className="w-full mb-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-500 hover:border-gray-300 shadow-sm focus:shadow" placeholder="example@gmaill.com"/>
@@ -45,7 +129,9 @@ export default function LoginPage(){
                             <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" name="password" className="mb-6 w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-500 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Password"/>
                         </div>
                         
-                        <input type="submit" value="Login"  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer transition duration-300"/>
+                        <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer transition duration-300 h-12">
+                            {isLoading ? <CircularProgress aria-label="Loading…" color="inherit"  size={22}/> : "Login"}
+                        </button>
                     </form>
                     <div className="mt-2.5 w-full flex justify-center">
                         <h2 className="text-sm">Don't have an account? <span className="font-medium cursor-pointer hover:text-slate-600" onClick={onSignUpClick}>Sign Up</span></h2>

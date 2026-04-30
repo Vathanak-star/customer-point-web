@@ -9,7 +9,7 @@ function RegisterPage() {
     const [password,setPassword] = useState('')
 
 
-    const onLoginClick = (event) => {
+    const onLoginClick = (evsent) => {
         event.preventDefault()
         navigate('/login', {viewTransition: true})
     }
