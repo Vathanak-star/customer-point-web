@@ -37,79 +37,84 @@ export default function LoginPage(){
                           transition: Bounce,
                 });
         }else{
-            userService.login(userObj).then(result => {
-            console.log(result.status)
+            try {
+                userService.login(userObj).then(result => {
+                    console.log(result.status)
 
-            if(result.msg === "Internal server error."){
-                setLoading(false)
-                toast.error('Incorrect email input or error server', {
-                          position: "top-right",
-                          autoClose: 3000,
-                          hideProgressBar: false,
-                          closeOnClick: false,
-                          pauseOnHover: true,
-                          draggable: true,
-                          progress: undefined,
-                          theme: "light",
-                          transition: Bounce,
-                });
-            }
+                    if(result.msg === "Internal server error."){
+                        setLoading(false)
+                        toast.error('Error server', {
+                                position: "top-right",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                                transition: Bounce,
+                        });
+                    }
 
-            if(result.msg === 'Email not found'){
-                setLoading(false)
-                toast.error('Email not found!', {
-                          position: "top-right",
-                          autoClose: 3000,
-                          hideProgressBar: false,
-                          closeOnClick: false,
-                          pauseOnHover: true,
-                          draggable: true,
-                          progress: undefined,
-                          theme: "light",
-                          transition: Bounce,
-                });
-            }
+                    if(result.msg === 'Email not found'){
+                        setLoading(false)
+                        toast.error('Email not found!', {
+                                position: "top-right",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                                transition: Bounce,
+                        });
+                    }
 
-            if(result.msg === 'Invalid credentials'){
-                setLoading(false)
-                toast.error('Incorrect password!', {
-                          position: "top-right",
-                          autoClose: 3000,
-                          hideProgressBar: false,
-                          closeOnClick: false,
-                          pauseOnHover: true,
-                          draggable: true,
-                          progress: undefined,
-                          theme: "light",
-                          transition: Bounce,
-                });
-            }
+                    if(result.msg === 'Invalid credentials'){
+                        setLoading(false)
+                        toast.error('Incorrect password!', {
+                                position: "top-right",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                                transition: Bounce,
+                        });
+                    }
 
-            if(result.status === 'success'){
-                setLoading(false)
-                navigate('/home')
+                    if(result.status === 'success'){
+                        console.log(result.data.token)
+                        localStorage.setItem('jsonwebtoken',result.data.token)
+
+                        setLoading(false)
+                        navigate('/')
+                    }
+                })
+            } catch (error) {
+                console.log(error)
             }
-        })
         }
-
-          
     }
 
 
     return (
         <div className="flex h-screen justify-center items-center bg-white sm:bg-gray-100 transition-colors duration-400">
             <ToastContainer
-                                  position="top-right"
-                                  autoClose={3000}
-                                  hideProgressBar={false}
-                                  newestOnTop={false}
-                                  closeOnClick={false}
-                                  rtl={false}
-                                  pauseOnFocusLoss
-                                  draggable
-                                  pauseOnHover
-                                  theme="light"
-                                  transition={Bounce}
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
             />
             <div className="bg-white rounded-lg p-4 w-full max-w-md mx-auto">
                 <div className="flex flex-col m-10">

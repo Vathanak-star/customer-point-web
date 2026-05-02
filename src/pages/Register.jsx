@@ -1,17 +1,103 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { CircularProgress } from "@mui/material";
+import userService from '../services/users'
 
 function RegisterPage() {
     const navigate = useNavigate()
     const [username,setUsername] = useState('')
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
+    const [isLoading,setLoading] = useState(false)
 
 
     const onLoginClick = (evsent) => {
         event.preventDefault()
         navigate('/login', {viewTransition: true})
+    }
+
+    const onSubmit = async (event) => {
+        event.preventDefault()
+        setLoading(true)
+        const userObj = {
+            username: username,
+            email: email,
+            password: password
+        }
+
+        if(!email || !password || !username){
+                    setLoading(false)
+                        toast.error('Missing email,password or username!', {
+                                  position: "top-right",
+                                  autoClose: 3000,
+                                  hideProgressBar: false,
+                                  closeOnClick: false,
+                                  pauseOnHover: true,
+                                  draggable: true,
+                                  progress: undefined,
+                                  theme: "light",
+                                  transition: Bounce,
+                        });
+        }else{
+            try {
+                const result = await userService.register(userObj)
+                console.log(result.status)
+
+                if(result.msg === "Internal server error."){
+                    setLoading(false)
+                    toast.error('Error server', {
+                                            position: "top-right",
+                                            autoClose: 3000,
+                                            hideProgressBar: false,
+                                            closeOnClick: false,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "light",
+                                            transition: Bounce,
+                    });
+                }
+
+                if(result.msg === "Validation error"){
+                    setLoading(false)
+                    toast.error('Password must be 8 character!', {
+                                            position: "top-right",
+                                            autoClose: 3000,
+                                            hideProgressBar: false,
+                                            closeOnClick: false,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "light",
+                                            transition: Bounce,
+                    });
+                }
+
+                if(result.msg === 'User with this email already exists'){
+                    setLoading(false)
+                    toast.error('Email aleady exists!', {
+                                            position: "top-right",
+                                            autoClose: 3000,
+                                            hideProgressBar: false,
+                                            closeOnClick: false,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "light",
+                                            transition: Bounce,
+                    });
+                }
+
+                if(result.status === 'success'){
+                    localStorage.setItem('jsonwebtoken',result.data.token)
+                    navigate('/')
+                }
+            } catch (error) {
+                console.error(error)
+            }
+        }
+        
     }
 
     return (
@@ -36,7 +122,7 @@ function RegisterPage() {
                     </div>
                     <h1 className="flex text-2xl font-bold justify-center">Admin Dashboard</h1>
                     <h1 className="flex text-2xl font-bold justify-center">Sign Up</h1>
-                    <form onSubmit={() => {}} className="flex flex-col mt-3">
+                    <form onSubmit={onSubmit} className="flex flex-col mt-3">
                         <div>
                             <label htmlFor="username" className="block mb-2.5 text-sm font-medium">Enter Username: </label>
                             <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" id="username" name="username" className="w-full mb-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-500 hover:border-gray-300 shadow-sm focus:shadow" placeholder="username"/>
@@ -52,7 +138,9 @@ function RegisterPage() {
                             <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" id="password" name="password" className="mb-6 w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-gray-500 hover:border-gray-300 shadow-sm focus:shadow" placeholder="Password"/>
                         </div>
                         
-                        <input type="submit" value="Submit"  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer transition duration-300"/>
+                        <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer transition duration-300 h-12">
+                            {isLoading ? <CircularProgress aria-label="Loading…" color="inherit"  size={22}/> : "Register"}
+                        </button>
                     </form>
 
                     <div className="mt-2.5 w-full flex justify-center">

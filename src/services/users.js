@@ -26,9 +26,24 @@ const register = async (userObj) => {
     return response.data
 }
 
+const validateToken = async (token) => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+
+    const response = await axios.get(`${baseUrl}/token`,{
+        headers: headers
+    })
+
+    console.log(response.data)
+
+    return response.data
+}
+
 // const users = async () => {
 //     const respones = await axios.get(`${baseUrl}/user`)
 //     return respones.data
 // }
 
-export default {login,register}
+export default {login,register,validateToken}
