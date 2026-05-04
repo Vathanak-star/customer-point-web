@@ -41,9 +41,9 @@ const validateToken = async (token) => {
     return response.data
 }
 
-// const users = async () => {
-//     const respones = await axios.get(`${baseUrl}/user`)
-//     return respones.data
-// }
+const users = async () => {
+    const respones = await axios.get(`${baseUrl}/user`)
+    return respones.data
+}
 
-export default {login,register,validateToken}
+export default {login,register,validateToken,users}

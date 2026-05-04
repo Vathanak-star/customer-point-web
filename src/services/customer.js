@@ -23,4 +23,14 @@ const deleteCustomer = async (id) => {
     return response.data
 }
 
-export default {fetchAllCustomer,createCustomer,updateCustomer,deleteCustomer}
+const addPoint = async (id,point) => {
+    const response = await axios.post(`${baseUrl}/addPoint/${id}?point=${point}`)
+    return response.data
+}
+
+const minusPoint = async (id,point) => {
+    const response = await axios.post(`${baseUrl}/minusPoint/${id}?point=${point}`)
+    return response.data
+}
+
+export default {fetchAllCustomer,createCustomer,updateCustomer,deleteCustomer,addPoint,minusPoint}

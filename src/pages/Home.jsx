@@ -29,7 +29,7 @@ export default function HomePage() {
         <div className="flex h-screen">
             <SideBar>
                 <SidebarItem icon={<LayoutDashboard size={20} />} text="Customer" onClick={() => onClickItem('Customer')} active={activeView === 'Customer'}/>
-                <SidebarItem icon={<ShoppingCart size={20} />} text="Customer Point" onClick={() => onClickItem('CustomerPoint')} active={activeView === 'CustomerPoint'}/>
+                <SidebarItem icon={<ShoppingCart size={20} />} text="Point" onClick={() => onClickItem('CustomerPoint')} active={activeView === 'CustomerPoint'}/>
                 <SidebarItem icon={<Layers2 size={20} />} text="User" onClick={() => onClickItem('User')} active={activeView === 'User'}/>
                 <SidebarItem icon={<LogOut size={20} />} text="Logout" onClick={() => onLogout()}/>
             </SideBar>
