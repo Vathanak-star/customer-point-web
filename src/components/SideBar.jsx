@@ -9,7 +9,7 @@ export default function SideBar({ children }){
         <aside className="h-screen w-min">
             <nav className="h-full flex flex-col bg-white border-r shadow-sm">
                 <div className="p-4 pb-2 flex justify-between items-center">
-                    <img src="https://img.freepik.com/premium-vector/dashboard-admin-icon-user-panel_946691-647.jpg" alt="" className={`overflow-hidden transition-all ${ expanded ? "w-9 h-9" : "w-0 h-0"}`}/>
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/046/599/226/small/illustration-of-tire-with-oil-bottle-vector.jpg" alt="" className={`overflow-hidden transition-all ${ expanded ? "w-9 h-9" : "w-0 h-0"}`}/>
                         <div className={`overflow-hidden transition-all ${ expanded ? "" : "w-0 h-0"}`}>
                             <h1 className="font-medium">Admin Dashboard</h1>
                         </div>
@@ -22,18 +22,6 @@ export default function SideBar({ children }){
                 <SidebarContext.Provider value={{expanded}}>
                     <ul className="flex-1 px-3">{children}</ul>
                 </SidebarContext.Provider>
-
-                <div className="border-t flex p-3">
-                    <img src="https://ui-avatars.com/api/?background=0D8ABC&color=fff" alt="" className="w-10 h-10 rounded-md"/>
-                    <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-52 ml-3": "w-0"}`}>
-                        <div className="leading-4">
-                            <h4 className="font-semibold">John Doe</h4>
-                            <span className="text-xs text-gray-600">johndoe@gmail.com</span>
-                        </div>
-
-                        <MoreVertical size={20}/>
-                    </div>
-                </div>
 
             </nav>
         </aside>

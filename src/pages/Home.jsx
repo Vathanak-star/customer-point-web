@@ -1,10 +1,10 @@
 import { useState } from "react";
 import SideBar, { SidebarItem }  from "../components/SideBar";
 import {
-    LayoutDashboard,
-    Layers2,
-    ShoppingCart,
-    LogOut
+    LogOut,
+    Activity,
+    BookUser,
+    User2
 } from 'lucide-react'
 import CustomerScreen from "./screens/CustomerScreen";
 import User from "./screens/User";
@@ -28,9 +28,9 @@ export default function HomePage() {
     return(
         <div className="flex h-screen">
             <SideBar>
-                <SidebarItem icon={<LayoutDashboard size={20} />} text="Customer" onClick={() => onClickItem('Customer')} active={activeView === 'Customer'}/>
-                <SidebarItem icon={<ShoppingCart size={20} />} text="Point" onClick={() => onClickItem('CustomerPoint')} active={activeView === 'CustomerPoint'}/>
-                <SidebarItem icon={<Layers2 size={20} />} text="User" onClick={() => onClickItem('User')} active={activeView === 'User'}/>
+                <SidebarItem icon={<BookUser size={20} />} text="Customer" onClick={() => onClickItem('Customer')} active={activeView === 'Customer'}/>
+                <SidebarItem icon={<Activity size={20} />} text="Point" onClick={() => onClickItem('CustomerPoint')} active={activeView === 'CustomerPoint'}/>
+                <SidebarItem icon={<User2 size={20} />} text="User" onClick={() => onClickItem('User')} active={activeView === 'User'}/>
                 <SidebarItem icon={<LogOut size={20} />} text="Logout" onClick={() => onLogout()}/>
             </SideBar>
 

@@ -1,4 +1,4 @@
-import { ShoppingCart, } from "lucide-react";
+import { Activity, ShoppingCart, } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import customerService from '../../services/customer';
 import {DataGrid} from '@mui/x-data-grid'
@@ -164,8 +164,8 @@ export default function CustomerPoint() {
                         />
 
             <div className="flex w-full h-16 bg-white justify-center items-center shadow shadow-indigo-100">
-                <ShoppingCart className="mr-3 w-5 h-5"/>
-                <h1 className="font-semibold text-lg">Manage Customer</h1>
+                <Activity className="mr-3 w-5 h-5"/>
+                <h1 className="font-semibold text-lg">Manage Point</h1>
             </div>
 
             <div className="p-6">

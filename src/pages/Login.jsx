@@ -119,9 +119,9 @@ export default function LoginPage(){
             <div className="bg-white rounded-lg p-4 w-full max-w-md mx-auto">
                 <div className="flex flex-col m-10">
                     <div className="w-full flex justify-center mb-2">
-                        <img src="https://img.freepik.com/premium-vector/dashboard-admin-icon-user-panel_946691-647.jpg" alt=""  className="w-20 h-20"/>
+                        <img src="https://static.vecteezy.com/system/resources/thumbnails/046/599/226/small/illustration-of-tire-with-oil-bottle-vector.jpg" alt=""  className="w-25 h-25"/>
                     </div>
-                    <h1 className="flex text-2xl font-bold justify-center">Admin Dashboard</h1>
+                    <h1 className="flex text-2xl font-bold justify-center">Customer Point System</h1>
                     <h1 className="flex text-2xl font-bold justify-center">Login</h1>
                     <form onSubmit={onSubmit} className="flex flex-col mt-3">
                         <div>

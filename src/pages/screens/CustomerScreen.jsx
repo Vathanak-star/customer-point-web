@@ -1,8 +1,8 @@
-import { Eye, RefreshCcw, ShoppingCart, Trash } from "lucide-react";
+import { BookUser, Eye, EyeIcon, RefreshCcw, ShoppingCart, Trash, View } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import customerService from '../../services/customer';
 import {DataGrid} from '@mui/x-data-grid'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Stack, TextField } from "@mui/material";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -16,6 +16,7 @@ export default function CustomerScreen() {
     const [openAdd,setOpenAdd] = useState(false)
     const [openUp,setOpenUp] = useState(false)
     const [openDel,setOpenDel] = useState(false)
+    const [openInfo,setOpenInfo] = useState(false)
 
     const [name,setName] = useState('')
     const [date,setDate] = useState(null)
@@ -25,11 +26,21 @@ export default function CustomerScreen() {
     const [searchClick,setSearchClick] = useState(false)
     const [filterCustomer,setFilterCustomer] = useState([])
 
+    const [nameInfo,setNameInfo] = useState('')
+    const [dateInfo,setDateInfo] = useState(null)
+    const [pointInfo,setPointInfo] = useState()
+
     const resetField = () => {
       setId('')
       setName('')
       setDate('')
       setPoint('')
+    }
+
+    const resetField2 = () => {
+      setNameInfo('')
+      setDateInfo(null)
+      setPointInfo()
     }
 
     const handleSearchCustomer = () => {
@@ -38,6 +49,11 @@ export default function CustomerScreen() {
       console.log(searchCustomer)
       setFilterCustomer(searchCustomer)
       setSearchClick(true)
+    }
+
+    const handleOnCloseInfo = () => {
+      resetField2()
+      setOpenInfo(false)
     }
 
     const columns = [
@@ -56,6 +72,21 @@ export default function CustomerScreen() {
         field: 'date',
         headerName: 'Date',
         flex: 1
+      },
+      {
+        field: 'view',
+        headerName: 'View',
+        renderCell: (params) => (
+          <Button sx={{width: 60, height: 30}} color="info" variant="contained" onClick={() => {
+            setNameInfo(params.row.name)
+            setPointInfo(params.row.point)
+            setDateInfo(params.row.date)
+            setOpenInfo(true)
+          }}>
+            <EyeIcon className="w-5 h-5"/>
+          </Button>
+        ),
+        width: 90
       },
       {
         field: 'update',
@@ -229,7 +260,7 @@ export default function CustomerScreen() {
                         />
 
             <div className="flex w-full h-16 bg-white justify-center items-center shadow shadow-indigo-100">
-                <ShoppingCart className="mr-3 w-5 h-5"/>
+                <BookUser className="mr-3 w-5 h-5"/>
                 <h1 className="font-semibold text-lg">Manage Customer</h1>
             </div>
 
@@ -348,6 +379,38 @@ export default function CustomerScreen() {
                                 setOpenUp(false)
                                 }} color="error">Cancel</Button>
                           </DialogActions>
+            </Dialog>
+
+            <Dialog
+              open={openInfo}
+              onClose={handleOnCloseInfo}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+              role="dialog"
+              sx={{
+                "& .MuiBackdrop-root": {
+                  backdropFilter: "blur(6px)", // Adjust blur intensity here
+                  backgroundColor: "rgba(0, 0, 0, 0.5)", // Optional: dim the background
+                },
+              }}  
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Information Point"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  <strong>Facebook Name: </strong> {nameInfo}
+                </DialogContentText>
+                <DialogContentText id="alert-dialog-description">
+                  <strong>Total Point: </strong> {pointInfo}
+                </DialogContentText>
+                <DialogContentText id="alert-dialog-description">
+                  <strong>Last Updated: </strong> {dateInfo}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleOnCloseInfo}>Close</Button>
+              </DialogActions>
             </Dialog>
         </div>
     )
