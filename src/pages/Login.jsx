@@ -138,9 +138,6 @@ export default function LoginPage(){
                             {isLoading ? <CircularProgress aria-label="Loading…" color="inherit"  size={22}/> : "Login"}
                         </button>
                     </form>
-                    <div className="mt-2.5 w-full flex justify-center">
-                        <h2 className="text-sm">Don't have an account? <span className="font-medium cursor-pointer hover:text-slate-600" onClick={onSignUpClick}>Sign Up</span></h2>
-                    </div>
                 </div>
                 
             </div>
