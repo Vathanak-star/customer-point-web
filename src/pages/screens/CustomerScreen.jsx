@@ -395,7 +395,7 @@ s
               }}  
             >
               <DialogTitle id="alert-dialog-title">
-                {"Information Point"}
+                {"Information"}
               </DialogTitle>
               <DialogContent>
                 <DialogContentText id="alert-dialog-description">
