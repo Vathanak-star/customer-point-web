@@ -45,7 +45,7 @@ export default function CustomerScreen() {
 
     const handleSearchCustomer = () => {
       const tempCustomer = [...customers]
-      const searchCustomer = tempCustomer.filter((item) => item.name.toLowerCase().startsWith(search))
+      const searchCustomer = tempCustomer.filter((item) => item.name.startsWith(search))
       console.log(searchCustomer)
       setFilterCustomer(searchCustomer)
       setSearchClick(true)
