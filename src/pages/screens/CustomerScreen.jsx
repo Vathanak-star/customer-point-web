@@ -44,11 +44,23 @@ export default function CustomerScreen() {
     }
 
     const handleSearchCustomer = () => {
-      const tempCustomer = [...customers]
-      const searchCustomer = tempCustomer.filter((item) => item.name.startsWith(search))
-      console.log(searchCustomer)
-      setFilterCustomer(searchCustomer)
-      setSearchClick(true)
+      const normalizedSearch = search
+        .normalize('NFC')                  
+        .replace(/[\u200B\u200C\u200D\uFEFF]/g, '') 
+        .toLowerCase();                     
+
+      const filtered = customers.filter((item) => {
+        const normalizedName = item.name
+          .normalize('NFC')
+          .replace(/[\u200B\u200C\u200D\uFEFF]/g, '')
+          .toLowerCase();
+
+        return normalizedName.startsWith(normalizedSearch);
+      });
+
+      console.log(filtered);
+      setFilterCustomer(filtered);
+      setSearchClick(true);
     }
 
     const handleOnCloseInfo = () => {
