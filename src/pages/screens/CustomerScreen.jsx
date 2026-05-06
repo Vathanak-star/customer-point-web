@@ -43,6 +43,11 @@ export default function CustomerScreen() {
       setPointInfo()
     }
 
+    const handlePaste = (e) => {
+      const cleanValue = e.target.value.trimStart();
+      setSearch(cleanValue);
+    }
+
     const handleSearchCustomer = () => {
       const tempCustomer = [...customers]
       const searchCustomer = tempCustomer.filter((item) => item.name.toLowerCase().startsWith(search.toLowerCase()));
@@ -273,7 +278,7 @@ export default function CustomerScreen() {
                             </svg>
                         
                             <input
-                                value={search} onChange={(e) => setSearch(e.target.value)} className="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-l-md pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+                                value={search} onChange={(e) => setSearch(e.target.value.trimStart().trimEnd())} className="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-l-md pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
                                 placeholder="Search Customers..." 
                             />
                             
