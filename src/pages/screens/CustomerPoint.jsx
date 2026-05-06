@@ -52,24 +52,11 @@ export default function CustomerPoint() {
     }
 
     const handleSearchCustomer = () => {
-       const normalizedSearch = search
-        .normalize('NFC')                     // standard Khmer normalization
-        .replace(/[\u200B\u200C\u200D\uFEFF]/g, '') // remove zero-width spaces etc.
-        .toLowerCase();                       // for English case-insensitivity (safe for Khmer)
-
-      const filtered = customers.filter((item) => {
-        // Apply the same cleaning to each customer name
-        const normalizedName = item.name
-          .normalize('NFC')
-          .replace(/[\u200B\u200C\u200D\uFEFF]/g, '')
-          .toLowerCase();
-
-        return normalizedName.startsWith(normalizedSearch);
-      });
-
-      console.log(filtered);
-      setFilterCustomer(filtered);
-      setSearchClick(true);
+      const tempCustomer = [...customers]
+      const searchCustomer = tempCustomer.filter((item) => item.name.toLowerCase().startsWith(search.toLowerCase()));
+      console.log(searchCustomer)
+      setFilterCustomer(searchCustomer)
+      setSearchClick(true)
     }
 
     const columns = [
