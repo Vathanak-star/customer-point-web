@@ -1,4 +1,4 @@
-import { Activity, ShoppingCart, } from "lucide-react";
+import { Activity } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import customerService from '../../services/customer';
 import {DataGrid} from '@mui/x-data-grid'
@@ -35,6 +35,7 @@ export default function CustomerPoint() {
     const updatePointMinus = async (id,point) => {
         try {
                 const result = await customerService.minusPoint(id,point)
+                console.log(result)
               
                 const customer = customers.find(cus => cus.id == id)
                 const newCustomer = {

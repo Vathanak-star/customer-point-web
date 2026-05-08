@@ -183,6 +183,7 @@ export default function CustomerScreen() {
 
       try {
         const result = await customerService.updateCustomer(customerObj,id)
+        console.log(result)
         const customer = customers.find(cus => cus.id == id)
         const newCustomer = {
           ...customer,
