@@ -10,10 +10,8 @@ const PrivateRoutes = () => {
   
     useEffect(() => {
       const token = localStorage.getItem('jsonwebtoken')
-      console.log(`token: ${token}`)
   
       userService.validateToken(token).then(result => {
-        console.log(result.msg)
   
         if(result.status === 'success'){
           setValid(true)

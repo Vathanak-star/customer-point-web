@@ -42,7 +42,6 @@ function RegisterPage() {
         }else{
             try {
                 const result = await userService.register(userObj)
-                console.log(result.status)
 
                 if(result.msg === "Internal server error."){
                     setLoading(false)

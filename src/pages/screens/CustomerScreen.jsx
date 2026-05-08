@@ -43,15 +43,9 @@ export default function CustomerScreen() {
       setPointInfo()
     }
 
-    const handlePaste = (e) => {
-      const cleanValue = e.target.value.trimStart();
-      setSearch(cleanValue);
-    }
-
     const handleSearchCustomer = () => {
       const tempCustomer = [...customers]
       const searchCustomer = tempCustomer.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
-      console.log(searchCustomer)
       setFilterCustomer(searchCustomer)
       setSearchClick(true)
     }
@@ -162,7 +156,6 @@ export default function CustomerScreen() {
       }
 
       customerService.createCustomer(customerObj).then(customer => {
-        console.log(customer.data)
         setCustomers([...customers,customer.data])
         resetField()
         toast.success('Add Customer Success!', {
@@ -190,7 +183,6 @@ export default function CustomerScreen() {
 
       try {
         const result = await customerService.updateCustomer(customerObj,id)
-        console.log(result)
         const customer = customers.find(cus => cus.id == id)
         const newCustomer = {
           ...customer,
@@ -224,7 +216,6 @@ export default function CustomerScreen() {
     const handleDeleteCustomer = async () => {
       try {
         customerService.deleteCustomer(id).then(result => {
-          console.log(result)
           const customerIndex = customers.findIndex(obj => obj.id == id)
           const newData = [...customers]
           newData.splice(customerIndex,1)

@@ -15,7 +15,7 @@ export default function CustomerPoint() {
     const updatePointAdd = async (id,point) => {
               try {
                 const result = await customerService.addPoint(id,point)
-                console.log(result)
+      
                 const customer = customers.find(cus => cus.id == id)
                 const newCustomer = {
                   ...customer,
@@ -35,7 +35,7 @@ export default function CustomerPoint() {
     const updatePointMinus = async (id,point) => {
         try {
                 const result = await customerService.minusPoint(id,point)
-                console.log(result)
+              
                 const customer = customers.find(cus => cus.id == id)
                 const newCustomer = {
                   ...customer,
@@ -54,7 +54,6 @@ export default function CustomerPoint() {
     const handleSearchCustomer = () => {
       const tempCustomer = [...customers]
       const searchCustomer = tempCustomer.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
-      console.log(searchCustomer)
       setFilterCustomer(searchCustomer)
       setSearchClick(true)
     }

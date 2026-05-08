@@ -39,7 +39,6 @@ export default function LoginPage(){
         }else{
             try {
                 userService.login(userObj).then(result => {
-                    console.log(result.status)
 
                     if(result.msg === "Internal server error."){
                         setLoading(false)
@@ -87,7 +86,6 @@ export default function LoginPage(){
                     }
 
                     if(result.status === 'success'){
-                        console.log(result.data.token)
                         localStorage.setItem('jsonwebtoken',result.data.token)
 
                         setLoading(false)

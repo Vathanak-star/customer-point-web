@@ -6,8 +6,6 @@ const baseUrl = `${Route}/api/auth`
 const login = async (userObj) => {
      const response = await axios.post(`${baseUrl}/login`,userObj).catch(function(error){
         if(error.response){
-            console.log(error.response.data)
-            console.log(error.response.status);
             return error.response;
         }
      });
@@ -18,8 +16,6 @@ const login = async (userObj) => {
 const register = async (userObj) => {
     const response = await axios.post(`${baseUrl}/register`,userObj).catch(function(error){
         if(error.response){
-            console.log(error.response.data)
-            console.log(error.response.status);
             return error.response;
         }
     })
@@ -36,7 +32,6 @@ const validateToken = async (token) => {
         headers: headers
     })
 
-    console.log(response.data)
 
     return response.data
 }
