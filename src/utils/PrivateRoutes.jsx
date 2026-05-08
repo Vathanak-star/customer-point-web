@@ -17,8 +17,14 @@ const PrivateRoutes = () => {
           setValid(true)
         }
 
+        if(result.message === 'Invalid Token'){
+          setValid(false)
+        }
+
+
         setLoading(false)
-      }).catch(() => {
+      }).catch((err) => {
+        console.log(err)
         setLoading(false)
       })
       

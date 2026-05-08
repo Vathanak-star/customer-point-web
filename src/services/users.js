@@ -30,7 +30,12 @@ const validateToken = async (token) => {
 
     const response = await axios.get(`${baseUrl}/token`,{
         headers: headers
-    })
+    }).catch(function(error){
+        console.log(error.response)
+        if(error.response){
+            return error.response;
+        }
+     });
 
 
     return response.data
