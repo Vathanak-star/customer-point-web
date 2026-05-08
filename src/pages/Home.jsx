@@ -21,7 +21,6 @@ export default function HomePage() {
     }
 
     const onClickItem = (value) => {
-        console.log(`${value} Clicked`)
         setActiveView(value)
     }
 
