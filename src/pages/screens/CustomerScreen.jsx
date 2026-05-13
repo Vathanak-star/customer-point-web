@@ -351,7 +351,6 @@ export default function CustomerScreen() {
                           </DialogActions>
             </Dialog>
 
-s
             <Dialog open={openUp} fullWidth>
                           <DialogTitle>Update Customer</DialogTitle>
                           <DialogContent>
